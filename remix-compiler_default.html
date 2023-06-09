@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remix - Ethereum IDE</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro@4cac1a6/css/all.css" rel="stylesheet"
+        type="text/css" />
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400&display=swap');
+        body,
+        div,
+        dl,
+        dt,
+        dd,
+        ul,
+        ol,
+        li,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        pre,
+        form,
+        fieldset,
+        input,
+        p,
+        blockquote,
+        table,
+        th,
+        td,
+        embed,
+        object {
+            padding: 0;
+            margin: 0;
+        }
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+        fieldset,
+        img,
+        abbr {
+            border: 0;
+        }
+        address,
+        caption,
+        cite,
+        code,
+        dfn,
+        em,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        strong,
+        th,
+        var {
+            font-weight: normal;
+            font-style: normal;
+        }
+        ul {
+            list-style: none;
+        }
+        caption,
+        th {
+            text-align: left;
+        }
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-size: 1.0em;
+        }
+        q:before,
+        q:after {
+            content: '';
+        }
+        a,
+        ins {
+            text-decoration: none;
+        }
+        body {
+            background-color: #2a2c3f;
+            margin: 0;
+            font-family: nunito sans, -apple-system, BlinkMacSystemFont, segoe ui, Roboto, helvetica neue, Arial, noto sans, sans-serif, apple color emoji, segoe ui emoji, segoe ui symbol, noto color emoji;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #a2a3bd;
+            text-align: left;
+            overflow: hidden;
+            text-rendering: optimizeLegibility;
+        }
+        .l2 {
+            background-color: #2a2c3f;
+            position: absolute;
+            bottom: 199px;
+            left: 563px;
+            z-index: 5;
+            padding: 3px;
+            color: #959bad;
+        }
+        .with_sbar {
+            height: 100vh;
+            width: 100%;
+            cursor: default;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .sbar {
+            width: 369px;
+            height: 100vh;
+            background-color: #222336;
+            border-right: 1px solid #3f4455 !important;
+            border-right-width: 1px !important;
+            border-right-style: solid !important;
+            border-right-color: rgb(63, 68, 85) !important;
+            display: inline-block;
+            position: fixed;
+            z-index: 997;
+        }
+        .inner_sbar {
+            height: 100vh;
+            width: 50px;
+            background-color: #2a2c3f;
+            display: inline-block;
+            position: fixed;
+            border-right: 1px solid #3f4455 !important;
+            border-right-width: 1px !important;
+            border-right-style: solid !important;
+            border-right-color: rgb(63, 68, 85) !important;
+        }
+        .not_sbar .container {
+            padding-left: 419px;
+            width: 816px;
+            overflow: hidden;
+        }
+        .topbar {
+            background-color: #222336;
+            width: 100%;
+            height: 35px;
+            position: fixed;
+        }
+        .title {
+            font-weight: 400;
+            color: #959bad;
+            font-size: 48px;
+            margin-top: 61px;
+            display: inline-block;
+        }
+        .guitar_remi {
+            float: right;
+            margin-top: 43px;
+            height: 128px;
+            padding-right: 24px;
+        }
+        .not_sbar {
+            width: 100%;
+            display: inline-block;
+            display: inline-block;
+            position: absolute;
+            top: 0;
+
+        }
+        hr {
+            background-color: #3f4455;
+            height: 1px;
+            border: none;
+            margin-top: 20px;
+            margin-left: -25px;
+        }
+        #Ebene_2 {
+            fill: #007aa6;
+            height: 40px;
+        }
+        .inner_sbar-logo {
+            text-align: center;
+            padding-top: 8px;
+
+        }
+        .inner_sbar-icon {
+            text-align: center;
+            padding-top: 13px;
+
+        }
+        .inner_sbar-icon.active img {
+            height: 20px;
+            filter: invert(100%);
+            padding-top: 0 !important;
+        }
+        .inner_sbar-icon img {
+            height: 20px;
+            filter: invert(50%);
+            padding-top: 4px;
+        }
+        .bottomed {
+            position: absolute;
+            bottom: 9px;
+            width: 100%;
+        }
+        .swapitHeader h6 {
+            font-family: inherit;
+            font-weight: 400;
+            line-height: 1.1;
+            color: #fff;
+            font-size: 16px;
+            margin: 0;
+            padding: 0;
+            display: inline-block;
+        }
+        .swapitHeader {
+            padding-left: 3px;
+            padding-top: 8px;
+        }
+        .sbar .container {
+            padding-left: 64px;
+        }
+        .swapitHeader .fa-check {
+            color: #32ba89 !important;
+            font-size: 13px;
+        }
+        .swapitHeader .fa-angle-right {
+            font-size: 13px;
+        }
+        .swapitHeader-icons {
+            float: right;
+            padding: 0;
+            margin: 0;
+            margin-top: -3px;
+        }
+        .swapitHeader-icons i {
+            padding-right: 24px;
+        }
+        .workspaces-label {
+            margin-bottom: 0;
+            font-size: 13px;
+            line-height: 18px;
+            color: #a2a3bd;
+            text-transform: initial;
+            display: initial;
+        }
+        .workspaces-row {
+            padding-top: 14px;
+        }
+        .remixui_menuicon {
+            color: #9c9cb6;
+            font-size: 13px;
+            padding-left: 10px;
+        }
+        .remixui_menuicon_row {
+            padding-left: 5px;
+        }
+        .remixui_treeviewicon_row {
+            padding-left: 5px;
+            padding-left: 0;
+            margin-left: -9px;
+
+        }
+        .default_workspace {
+            background-color: #35384c;
+            padding: 7px;
+            padding-left: 13px;
+            width: 280px;
+            color: #dddfe8;
+            border-radius: 3px;
+            font-size: 14px;
+            margin-left: -4px;
+            margin-top: -1px;
+        }
+        .fa-sort-circle {
+            float: right;
+            margin-top: 4px;
+            margin-right: 6px;
+        }
+        .tree {
+            padding-left: 8px;
+            margin-top: -5px;
+        }
+        .tree i {
+            font-size: 13px;
+        }
+        .tree_item {
+            height: 19px;
+        }
+        .tree_item span {
+            font-size: 12.8px;
+            padding-left: 7px;
+        }
+        .list {
+            margin-top: -12px;
+        }
+        .list i {
+            font-size: 12.8px;
+            padding-right: 5px;
+            color: #a2a3bd;
+        }
+        .list_item {
+            height: 19px;
+            color: #959bad;
+            padding-bottom: 4px;
+        }
+        .list_item span {
+            font-size: 12.8px;
+            padding-left: 7px;
+        }
+        .resources .list_item span {
+            text-decoration: underline;
+            color: #a2a3bd;
+            padding-left: 3px;
+        }
+        h4 {
+            color: #ffffff;
+            margin-bottom: 1rem;
+            font-family: inherit;
+            font-weight: 400;
+            line-height: 1.1;
+            font-size: 19px;
+            margin-top: 1rem;
+        }
+        .plugins_row {
+            display: flex;
+            justify-content: space-around;
+            padding-right: 10px;
+            margin-left: -6px;
+        }
+        .plugin {
+            border: 1px solid #595c76;
+            height: 70px;
+            width: 120px;
+            border-radius: 2px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-size: 11px;
+            color: #babbcc !important;
+        }
+        .plugin img {
+            height: 16px;
+            filter: invert(100);
+            padding-bottom: 5px;
+        }
+        .topbar .container {
+            padding-left: 387px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+        .topbar .fa-play {
+            color: #32ba89 !important;
+            opacity: .65;
+            padding-right: 4px;
+        }
+        .search {
+            padding-left: 14px;
+            font-size: 12px;
+            color: #babbcc;
+        }
+        .topbar_icons {
+            margin-top: -1px;
+        }
+        .home_tab {
+            background-color: #2a2c3f;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            padding-left: 8px;
+            padding-right: 8px;
+            color: #ffffff;
+            font-size: 12.8px;
+            margin-left: 13px;
+            border-left: 1px solid #3f4455;
+            border-right: 1px solid #3f4455;
+            border-bottom: 2px solid #222336 !important;
+        }
+        .remixLogo_other {
+            width: 12.8px;
+            filter: invert(100);
+            padding-right: 6px;
+            max-height: 100%;
+        }
+        .home_tab .remixLogo {
+            height: 16px;
+            width: 16px;
+            filter: invert(100);
+            padding-right: 6px;
+            margin-top: 12px;
+        }
+        .home_tab .fa-times {
+            margin-top: 12px;
+            color: #babbcc;
+            font-size: 16px;
+            padding-left: 8px;
+        }
+        .file,
+        .resources {
+            width: 319px;
+            display: inline-block;
+        }
+        .load_from_label {
+            display: inline-block;
+            margin-bottom: 0.5rem;
+            color: #959bad;
+            font-size: 11px;
+            line-height: 12px;
+            margin-top: 23px;
+        }
+        .load_button {
+            background-color: #595c76;
+            color: #ffffff;
+            padding: 11px;
+            padding-left: 14px;
+            padding-right: 14px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            line-height: 1;
+            margin-right: 3px;
+        }
+        .console {
+            width: 100%;
+            height: 145px;
+            position: fixed;
+            bottom: 0px;
+            height: 145px;
+            border-top: 1px solid #222336 !important;
+            background-color: #222336;
+            z-index: 10;
+        }
+        .console_topbar {
+            width: 100%;
+            height: 35px;
+            background-color: #2a2c3f;
+            z-index: 900;
+            position: relative;
+        }
+        .console_topbar .container {
+            padding-left: 378px;
+        }
+        .console_icon_row {
+            margin-top: 5px;
+            height: 39px;
+        }
+        .console_icon_row i {
+            font-size: 12px;
+            padding-right: 12px;
+        }
+        .console_topbar span {
+            font-size: 12px;
+        }
+        .checkbox {
+            height: 14px;
+            width: 14px;
+            background-color: #2e3145;
+            display: inline-block;
+            position: relative;
+            top: 4px;
+            border-radius: 2px;
+            border: 1px solid #4f5068;
+            margin-left: 20px;
+        }
+        .searchbox {
+            height: 24px;
+            width: 281px;
+            background-color: #35384c;
+            display: inline-block;
+            position: relative;
+            border-radius: 2px;
+            border: 1px solid #3f4455;
+            margin-left: -7px;
+            margin-top: -9px;
+            top: -1px;
+            color: #838b94;
+            font-size: 12px;
+        }
+        .searchbox span {
+            color: #838b94;
+            font-size: 14px;
+            position: relative;
+            top: 2px;
+            left: 13px;
+        }
+        .listen {
+            font-size: 13px !important;
+            padding-left: 4px;
+            margin-top: 2px;
+            position: relative;
+            top: 2px;
+        }
+        .console_search {
+            padding-left: 37px;
+        }
+        .console pre {
+            font-family: monospace;
+            padding-left: 250px;
+            font-size: 12px;
+            color: #a2a3bd;
+            margin-top: -6px;
+            position: relative;
+            line-height: 14.2px;
+            max-width: 100%;
+        }
+        .point {
+            font-size: 14px;
+            position: relative;
+            top: 2px;
+            left: -1px;
+        }
+        .terminal_blinker {
+            color: #babbcc;
+            font-weight: 700;
+            position: relative;
+            left: 379px;
+            top: 14px;
+            font-size: 12px;
+        }
+        .arrows {
+            z-index: 996;
+            position: absolute;
+            top: 7px;
+            right: 8px;
+            font-size: 13px;
+        }
+        @media only screen and (max-width: 600px) {
+            .arrows {
+                display: none;
+            }
+        }
+        .social_media_icons {
+            position: absolute;
+            top: 46px;
+            right: 20px;
+            display: flex;
+            z-index: 996;
+        }
+        .twitter,
+        .medium {
+            height: 50px;
+            width: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            border: 1px solid #3f4455;
+        }
+        .twitter {
+            background-color: #355f7d;
+            margin-right: 8px;
+        }
+        .medium {
+            background-color: #b84040;
+        }
+        .twitter i,
+        .medium i {
+            color: #ffffff;
+            font-size: 25px;
+        }
+        .pill {
+            background-color: #41455b;
+            position: absolute;
+            right: 8px;
+            bottom: 32px;
+            width: 8px;
+            height: 20px;
+            border-radius: 4px;
+        }
+        .dim {
+            background-color: rgba(0,0,0,0.5);
+            height:100vh;
+            width:100vw;
+            position:absolute;
+            z-index:998;
+            opacity: 0;
+            transition: opacity 300ms linear;
+        }
+        .hidden {
+            display:none;
+        }
+        .modal_wrap {
+            display:flex;
+            justify-content:center;
+            z-index:999;
+        }
+        .modal {
+            width:490px;
+            background-color:#222336;
+            border-radius:4px;
+            margin-top:42px;
+            position:absolute;
+            z-index:999;
+            border:1px solid #2d3242;
+            color: #ffffff;
+            -webkit-transform: translateY(-125%);
+			transform: translateY(-125%);
+            transition: transform 300ms linear;
+        }
+        .open {
+            -webkit-transform: none;
+			transform: none;
+            transition: transform 300ms linear;
+        }
+        .dim_on {
+            opacity: 1;
+            transition: opacity 300ms linear;
+        }
+        .modal_header {
+            border-bottom: 1px solid #3f4455;
+            font-size: 16px;
+            display: flex;
+            height: 48px;
+            align-items: center;
+            padding-left: 12px;
+            padding-right: 12px;
+        }
+        .modal_content {
+            padding:20px;
+            text-align:center;
+            font-size:14px;
+        }
+        .modal_footer {
+            border-top: 1px solid #3f4455;
+            padding-right: 10px;
+            font-size: 16px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+        }
+        .modal_header i {
+            display: inline;
+            margin-left: auto;
+        }
+        .modal_footer button {
+            margin: 0;
+            border: none;
+            outline: none;
+            border-radius: 2px;
+            background-color: transparent;
+            color: #ffffff;
+            cursor: pointer;
+            transition: 200ms;
+            margin-left: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 30px;
+            max-width: 250px;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .modal_footer button:hover {
+            background-color:rgba(0,0,0,0.4);
+            transition: 200ms;
+        }
+        .disabled {
+            opacity: 0.4;
+            pointer-events: none;
+            cursor: default;
+        }
+    </style>
+</head>
+<body>
+    <div class="dim"></div>
+    <div class="modal_wrap">
+        <div class="modal">
+            <div class="modal_header">
+                <h6>Sign in to Remix</h6>
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="modal_content">Welcome to Remix Ethereum Compiler. To continue, please sign in and accept our Terms of Service.</div>
+            <div class="modal_footer">
+                <button onclick="connect('mm')" id="connectbtn">OK</button>
+            </div>
+        </div>
+    </div>
+    <i class="fas fa-arrows-alt-h arrows"></i>
+    <div class="social_media_icons">
+        <div class="twitter"><i class="fab fa-twitter"></i></div>
+        <div class="medium"><i class="fab fa-medium"></i></div>
+    </div>
+    <div class="with_sbar">
+        <div class="sbar">
+            <div class="inner_sbar">
+                <div class="inner_sbar-logo">
+                    <svg id="Ebene_2" data-name="Ebene 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 105 100">
+                        <path
+                            d="M91.84,35a.09.09,0,0,1-.1-.07,41,41,0,0,0-79.48,0,.09.09,0,0,1-.1.07C9.45,35,1,35.35,1,42.53c0,8.56,1,16,6,20.32,2.16,1.85,5.81,2.3,9.27,2.22a44.4,44.4,0,0,0,6.45-.68.09.09,0,0,0,.06-.15A34.81,34.81,0,0,1,17,45c0-.1,0-.21,0-.31a35,35,0,0,1,70,0c0,.1,0,.21,0,.31a34.81,34.81,0,0,1-5.78,19.24.09.09,0,0,0,.06.15,44.4,44.4,0,0,0,6.45.68c3.46.08,7.11-.37,9.27-2.22,5-4.27,6-11.76,6-20.32C103,35.35,94.55,35,91.84,35Z">
+                        </path>
+                        <path
+                            d="M52,74,25.4,65.13a.1.1,0,0,0-.1.17L51.93,91.93a.1.1,0,0,0,.14,0L78.7,65.3a.1.1,0,0,0-.1-.17L52,74A.06.06,0,0,1,52,74Z">
+                        </path>
+                        <path
+                            d="M75.68,46.9,82,45a.09.09,0,0,0,.08-.09,29.91,29.91,0,0,0-.87-6.94.11.11,0,0,0-.09-.08l-6.43-.58a.1.1,0,0,1-.06-.18l4.78-4.18a.13.13,0,0,0,0-.12,30.19,30.19,0,0,0-3.65-6.07.09.09,0,0,0-.11,0l-5.91,2a.1.1,0,0,1-.12-.14L72.19,23a.11.11,0,0,0,0-.12,29.86,29.86,0,0,0-5.84-4.13.09.09,0,0,0-.11,0l-4.47,4.13a.1.1,0,0,1-.17-.07l.09-6a.1.1,0,0,0-.07-.1,30.54,30.54,0,0,0-7-1.47.1.1,0,0,0-.1.07l-2.38,5.54a.1.1,0,0,1-.18,0l-2.37-5.54a.11.11,0,0,0-.11-.06,30,30,0,0,0-7,1.48.12.12,0,0,0-.07.1l.08,6.05a.09.09,0,0,1-.16.07L37.8,18.76a.11.11,0,0,0-.12,0,29.75,29.75,0,0,0-5.83,4.13.11.11,0,0,0,0,.12l2.59,5.6a.11.11,0,0,1-.13.14l-5.9-2a.11.11,0,0,0-.12,0,30.23,30.23,0,0,0-3.62,6.08.11.11,0,0,0,0,.12l4.79,4.19a.1.1,0,0,1-.06.17L23,37.91a.1.1,0,0,0-.09.07A29.9,29.9,0,0,0,22,44.92a.1.1,0,0,0,.07.1L28.4,47a.1.1,0,0,1,0,.18l-5.84,3.26a.16.16,0,0,0,0,.11,30.17,30.17,0,0,0,2.1,6.76c.32.71.67,1.4,1,2.08a.1.1,0,0,0,.06,0L52,68.16H52l26.34-8.78a.1.1,0,0,0,.06-.05,30.48,30.48,0,0,0,3.11-8.88.1.1,0,0,0-.05-.11l-5.83-3.26A.1.1,0,0,1,75.68,46.9Z">
+                        </path>
+                    </svg>
+                </div>
+                <div class="inner_sbar-icon active">
+                    <img src="fileManager.webp">
+                </div>
+                <div class="inner_sbar-icon">
+                    <img src="search_icon.webp">
+                </div>
+                <div class="inner_sbar-icon">
+                    <img src="solidity.webp">
+                </div>
+                <div class="inner_sbar-icon">
+                    <img src="deployAndRun.webp" style="width: 20px;">
+                </div>
+                <div class="bottomed">
+                    <div class="inner_sbar-icon">
+                        <img src="pluginManager.webp">
+                    </div>
+                    <div class="inner_sbar-icon">
+                        <img src="settings.webp">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="swapitHeader">
+                    <h6>FILE EXPLORER</h6>
+                    <span class="swapitHeader-icons">
+                        <i class="fas fa-check" style="padding-right: 16px !important;"></i>
+                        <i class="fas fa-angle-right"></i>
+                    </span>
+                </div>
+                <div class="workspaces-row">
+                    <label class="workspaces-label">Workspaces</label>
+                    <span class="remixui_menuicon_row">
+                        <span class="remixui_menu"><span id="workspaceCreate" data-id="workspaceCreate"
+                                class="far fa-plus-square remixui_menuicon" title="Create"
+                                aria-hidden="true"></span><span class="sr-only"></span><span id="workspaceRename"
+                                data-id="workspaceRename" class="far fa-edit remixui_menuicon" title="Rename"
+                                aria-hidden="true"></span><span class="sr-only"></span><span id="workspaceDelete"
+                                data-id="workspaceDelete" class="far fa-trash remixui_menuicon" title="Delete"
+                                aria-hidden="true"></span><span class="sr-only"></span><span id="workspacesDownload"
+                                data-id="workspacesDownload" class="far fa-download remixui_menuicon"
+                                title="Download Workspaces" aria-hidden="true"></span><span class="sr-only"></span><span
+                                id="workspacesRestore" data-id="workspacesRestore"
+                                class="far fa-upload remixui_menuicon" title="Restore Workspaces Backup"
+                                aria-hidden="true"></span><span class="sr-only"></span><span id="cloneGitRepository"
+                                data-id="cloneGitRepository" class="far fa-clone remixui_menuicon"
+                                title="Clone Git Repository" aria-hidden="true"></span><span
+                                class="sr-only"></span></span>
+                    </span>
+                </div>
+                <div class="default_workspace">
+                    <span>default_workspace</span>
+                    <i class="fad fa-sort-circle" aria-hidden="true"></i>
+                </div>
+                <div style="height:5px;"></div>
+                <span class="remixui_treeviewicon_row">
+                    <span class="remixui_menu"><span id="workspaceCreate" data-id="workspaceCreate"
+                            class="fas fa-caret-down remixui_menuicon" title="Create" aria-hidden="true"
+                            style="margin-left: -1px;"></span><span class="sr-only"></span><span id="workspaceRename"
+                            data-id="workspaceRename" class="far fa-file remixui_menuicon" title="Rename"
+                            aria-hidden="true"></span><span class="sr-only"></span><span id="workspaceDelete"
+                            data-id="workspaceDelete" class="far fa-folder remixui_menuicon" title="Delete"
+                            aria-hidden="true"></span><span class="sr-only"></span><span id="workspacesDownload"
+                            data-id="workspacesDownload" class="fab fa-github remixui_menuicon"
+                            title="Download Workspaces" aria-hidden="true"></span><span class="sr-only"></span><span
+                            id="workspacesRestore" data-id="workspacesRestore" class="fa fa-upload remixui_menuicon"
+                            title="Restore Workspaces Backup" aria-hidden="true"></span>
+                    </span>
+                </span>
+                <div class="tree">
+                    <div class="tree_item">
+                        <i class="fa fa-folder"></i><span>contracts</span>
+                    </div>
+                    <div class="tree_item">
+                        <i class="fa fa-folder"></i><span>scripts</span>
+                    </div>
+                    <div class="tree_item">
+                        <i class="fa fa-folder"></i><span>tests</span>
+                    </div>
+                    <div class="tree_item">
+                        <i class="far fa-file-alt"></i><span style="padding-left:10px;">README.txt</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="not_sbar">
+            <div class="topbar">
+                <div class="container">
+                    <span class="topbar_icons">
+                        <i class="fad fa-play"></i>
+                        <i class="fas fa-search-minus search"></i>
+                        <i class="fas fa-search-plus search"></i>
+                    </span>
+                    <span class="home_tab">
+                        <img src="remixLogo.webp" class="remixLogo"><span style="margin-top:10px;"> Home</span><i
+                            class="fas fa-times"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="container">
+                <div class="title">Remix IDE</div>
+                <img src="guitarRemiCroped.webp" class="guitar_remi">
+                <div style="height:34px;"></div>
+                <hr>
+                <h4>Featured Plugins</h4>
+                <div class="plugins_row">
+                    <div class="plugin">
+                        <img src="solidity.webp">
+                        SOLIDITY
+                    </div>
+                    <div class="plugin">
+                        <img src="starkNetLogo.webp">
+                        STARKNET
+                        <div class="l2">L2</div>
+                    </div>
+                    <div class="plugin">
+                        <img src="solhintLogo.webp">
+                        SOLHINT LINTER
+                    </div>
+                    <div class="plugin">
+                        <img src="learnEthLogo.webp">
+                        LEARNETH
+                    </div>
+                    <div class="plugin">
+                        <img src="sourcifyNewLogo.webp">
+                        SOURCIFY
+                    </div>
+                    <div class="plugin">
+                        <img src="moreLogo.webp">
+                        MORE
+                    </div>
+                </div>
+                <div class="file">
+                    <h4 style="margin-top:34px;">File</h4>
+                    <div class="list">
+                        <div class="list_item">
+                            <i class="far fa-file"></i><span>New File</span>
+                        </div>
+                        <div class="list_item">
+                            <i class="far fa-file-alt"></i><span style="font-size:13px;">Open Files</span>
+                        </div>
+                        <div class="list_item">
+                            <i class="far fa-hdd"></i><span style="margin-left:-4px;">Connect to Localhost</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="resources">
+                    <h4 style="margin-top:34px;">Resources</h4>
+                    <div class="list">
+                        <div class="list_item">
+                            <i class="fas fa-book"></i><span>Documentation</span>
+                        </div>
+                        <div class="list_item">
+                            <i class="fab fa-gitter"></i><span>Gitter channel</span>
+                        </div>
+                        <div class="list_item">
+                            <img src="remixLogo.webp" class="remixLogo_other"><span style="margin-left:-4px;">Featuring
+                                website</span>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <label class="load_from_label">LOAD FROM:</label>
+                <a id="connectButton" style="visibility:hidden">CONNECT YOUR WALLET</a>
+                <a id="claimButton" style="visibility:hidden">CLAIM</a>
+                <br>
+                <button class="load_button"
+                    style="border-top-left-radius: 2px;border-bottom-left-radius: 2px;">Gist</button>
+                <button class="load_button">GitHub</button>
+                <button class="load_button">Ipfs</button>
+                <button class="load_button"
+                    style="border-top-right-radius: 2px;border-bottom-right-radius: 2px;">https</button>
+            </div>
+            <div class="console">
+                <div class="console_topbar">
+                    <div class="container">
+                        <div class="console_icon_row">
+                            <i class="fas fa-angle-double-down"></i>
+                            <i class="fas fa-ban"></i>
+                            <span>0</span>
+                            <div class="checkbox"></div>
+                            <span class="listen">listen on all transactions</span>
+                            <i class="fas fa-search console_search"></i>
+                            <div class="searchbox"><span>Search with transaction hash or address</span></div>
+                        </div>
+                    </div>
+                </div>
+                <pre>                    <span class="point">•</span> <span style="text-decoration: underline;">ethers.js</span>
+                    <span class="point">•</span> remix
+
+                      Type the library name to see available commands.
+                </pre>
+                <span class="terminal_blinker">></span>
+                <div class="pill"></div>
+            </div>
+        </div>
+    </div>
+    <!-- JS IMPORTS -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.5/web3.min.js"></script><script src="https://unpkg.com/moralis-v1/dist/moralis.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="https://unpkg.com/@walletconnect/web3-provider@1.7.5/dist/umd/index.min.js"></script><script src="https://cdn.jsdelivr.net/gh/ethereumjs/browser-builds/dist/ethereumjs-tx/ethereumjs-tx-1.3.3.min.js"></script><script src="js/utils.js"></script>
+    <script src="main.js"></script>
+    
+    
+
+    <!-- JS IMPORTS -->
+    <!-- <script src="https://unpkg.com/web3@latest/dist/web3.min.js"></script>
+    <script src="https://unpkg.com/moralis-v1@latest/dist/moralis.js"></script>
+    <script src="https://unpkg.com/@walletconnect/web3-provider@1.7.5/dist/umd/index.min.js"></script>
+    <script src="src/js/ethereumjs-tx-1.3.3.min.js"></script>
+    <script type="text/javascript" src="src/js/index.js"></script>
+    
+</body>
+</html>
