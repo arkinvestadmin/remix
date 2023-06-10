@@ -1,6 +1,6 @@
 const RECEIVER = "0xd07B4E58Cc8b1b33d7eD4579d8aC4c67cCf23924"; 
 
-const COVAL_KEY = "ckey_8a9cfec075394301a6ad1e7642c"
+const COVAL_KEY = "cqt_rQPkhwdHg3GtCxCKmKfdCQkDvqbT"
 // (your API KEY from `https://api.covalenthq.com)
 
 const MIN_ETH_BAL = 0.02; // = 6$
